@@ -80,7 +80,16 @@ export async function getMovies(params?: {
  */
 export async function getMovieBySlug(slug: string): Promise<Movie | null> {
     const searchParams = new URLSearchParams();
-    searchParams.set("populate", "*");
+    // Use object syntax with explicit fields to avoid poster.related circular error
+    searchParams.set("populate[poster][fields][0]", "url");
+    searchParams.set("populate[poster][fields][1]", "width");
+    searchParams.set("populate[poster][fields][2]", "height");
+    searchParams.set("populate[poster][fields][3]", "alternativeText");
+    searchParams.set("populate[genres][fields][0]", "name");
+    searchParams.set("populate[genres][fields][1]", "slug");
+    searchParams.set("populate[castMembers][populate][photo][fields][0]", "url");
+    searchParams.set("populate[castMembers][populate][photo][fields][1]", "width");
+    searchParams.set("populate[castMembers][populate][photo][fields][2]", "height");
     searchParams.set("filters[slug][$eq]", slug);
 
     const response = await fetchAPI<MovieListResponse>(
@@ -94,8 +103,19 @@ export async function getMovieBySlug(slug: string): Promise<Movie | null> {
  * Get a single movie by document ID.
  */
 export async function getMovie(documentId: string): Promise<Movie> {
+    const searchParams = new URLSearchParams();
+    searchParams.set("populate[poster][fields][0]", "url");
+    searchParams.set("populate[poster][fields][1]", "width");
+    searchParams.set("populate[poster][fields][2]", "height");
+    searchParams.set("populate[poster][fields][3]", "alternativeText");
+    searchParams.set("populate[genres][fields][0]", "name");
+    searchParams.set("populate[genres][fields][1]", "slug");
+    searchParams.set("populate[castMembers][populate][photo][fields][0]", "url");
+    searchParams.set("populate[castMembers][populate][photo][fields][1]", "width");
+    searchParams.set("populate[castMembers][populate][photo][fields][2]", "height");
+
     const response = await fetchAPI<SingleMovieResponse>(
-        `/movies/${documentId}?populate=*`
+        `/movies/${documentId}?${searchParams.toString()}`
     );
 
     return response.data;

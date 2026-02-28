@@ -2,30 +2,30 @@ import Image from "next/image";
 import type { CastMember } from "@/lib/types";
 import { getStrapiMediaUrl } from "@/lib/api";
 
-interface CastChipProps {
+interface CastCardProps {
     castMember: CastMember;
 }
 
-export default function CastChip({ castMember }: CastChipProps) {
+function CastCard({ castMember }: CastCardProps) {
     const photoUrl = castMember.photo?.url
         ? getStrapiMediaUrl(castMember.photo.url)
         : null;
 
     return (
-        <div className="flex items-center gap-3 rounded-xl bg-bg-surface-1 border border-border px-3 py-2 hover:border-accent/50 transition-colors">
+        <div className="flex flex-col items-center text-center group">
             {/* Photo */}
-            <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-bg-surface-2">
+            <div className="relative h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full bg-bg-surface-2 border-2 border-border group-hover:border-accent/60 transition-colors mb-3">
                 {photoUrl ? (
                     <Image
                         src={photoUrl}
                         alt={castMember.name}
                         fill
                         className="object-cover"
-                        sizes="40px"
+                        sizes="112px"
                     />
                 ) : (
-                    <div className="flex h-full w-full items-center justify-center text-text-secondary/50">
-                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex h-full w-full items-center justify-center text-text-secondary/40">
+                        <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -37,7 +37,7 @@ export default function CastChip({ castMember }: CastChipProps) {
                 )}
             </div>
             {/* Name */}
-            <span className="text-sm text-text-primary whitespace-nowrap">
+            <span className="text-sm font-medium text-text-primary leading-tight">
                 {castMember.name}
             </span>
         </div>
@@ -58,36 +58,37 @@ export function CastList({
     // Prefer the new castMembers relation, fallback to legacy cast JSON
     if (castMembers && castMembers.length > 0) {
         return (
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
                 {castMembers.slice(0, initialCount).map((member) => (
-                    <CastChip key={member.id} castMember={member} />
+                    <CastCard key={member.id} castMember={member} />
                 ))}
-                {castMembers.length > initialCount && (
-                    <span className="inline-flex items-center px-3 py-2 text-sm text-text-secondary">
-                        +{castMembers.length - initialCount} more
-                    </span>
-                )}
             </div>
         );
     }
 
-    // Fallback to legacy cast string array
+    // Fallback: legacy cast string array as simple cards with person icon
     if (cast && cast.length > 0) {
         return (
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
                 {cast.slice(0, initialCount).map((name, index) => (
-                    <span
-                        key={index}
-                        className="inline-flex items-center rounded-lg bg-bg-surface-1 border border-border px-3 py-1.5 text-sm text-text-primary whitespace-nowrap"
-                    >
-                        {name}
-                    </span>
+                    <div key={index} className="flex flex-col items-center text-center">
+                        <div className="relative h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full bg-bg-surface-2 border-2 border-border mb-3">
+                            <div className="flex h-full w-full items-center justify-center text-text-secondary/40">
+                                <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={1.5}
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+                        <span className="text-sm font-medium text-text-primary leading-tight">
+                            {name}
+                        </span>
+                    </div>
                 ))}
-                {cast.length > initialCount && (
-                    <span className="inline-flex items-center px-3 py-1.5 text-sm text-text-secondary">
-                        +{cast.length - initialCount} more
-                    </span>
-                )}
             </div>
         );
     }
@@ -98,3 +99,5 @@ export function CastList({
         </p>
     );
 }
+
+export default CastCard;
