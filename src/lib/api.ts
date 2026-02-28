@@ -87,9 +87,9 @@ export async function getMovieBySlug(slug: string): Promise<Movie | null> {
     searchParams.set("populate[poster][fields][3]", "alternativeText");
     searchParams.set("populate[genres][fields][0]", "name");
     searchParams.set("populate[genres][fields][1]", "slug");
-    searchParams.set("populate[castMembers][populate][photo][fields][0]", "url");
-    searchParams.set("populate[castMembers][populate][photo][fields][1]", "width");
-    searchParams.set("populate[castMembers][populate][photo][fields][2]", "height");
+    searchParams.set("populate[castRoles][populate][castMember][populate][photo][fields][0]", "url");
+    searchParams.set("populate[castRoles][populate][castMember][populate][photo][fields][1]", "width");
+    searchParams.set("populate[castRoles][populate][castMember][populate][photo][fields][2]", "height");
     searchParams.set("filters[slug][$eq]", slug);
 
     const response = await fetchAPI<MovieListResponse>(
@@ -110,9 +110,9 @@ export async function getMovie(documentId: string): Promise<Movie> {
     searchParams.set("populate[poster][fields][3]", "alternativeText");
     searchParams.set("populate[genres][fields][0]", "name");
     searchParams.set("populate[genres][fields][1]", "slug");
-    searchParams.set("populate[castMembers][populate][photo][fields][0]", "url");
-    searchParams.set("populate[castMembers][populate][photo][fields][1]", "width");
-    searchParams.set("populate[castMembers][populate][photo][fields][2]", "height");
+    searchParams.set("populate[castRoles][populate][castMember][populate][photo][fields][0]", "url");
+    searchParams.set("populate[castRoles][populate][castMember][populate][photo][fields][1]", "width");
+    searchParams.set("populate[castRoles][populate][castMember][populate][photo][fields][2]", "height");
 
     const response = await fetchAPI<SingleMovieResponse>(
         `/movies/${documentId}?${searchParams.toString()}`

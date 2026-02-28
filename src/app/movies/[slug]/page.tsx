@@ -158,7 +158,7 @@ export default async function MovieDetailPage({
                         <h2 className="text-xl font-semibold text-text-primary mb-4">
                             Cast
                         </h2>
-                        <CastList castMembers={movie.castMembers} cast={movie.cast || []} initialCount={6} />
+                        <CastList castRoles={movie.castRoles} initialCount={6} />
                     </section>
                 </div>
             </div>

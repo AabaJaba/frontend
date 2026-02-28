@@ -31,6 +31,12 @@ export interface CastMember {
     photo: StrapiImage | null;
 }
 
+export interface CastRole {
+    id: number;
+    castMember: CastMember | null;
+    character: string;
+}
+
 export interface Movie {
     id: number;
     documentId: string;
@@ -40,8 +46,7 @@ export interface Movie {
     runtime: number;
     poster: StrapiImage | null;
     director: string;
-    cast: string[];              // legacy JSON field
-    castMembers: CastMember[];   // new relation with photos
+    castRoles: CastRole[];  // repeatable component: actor + character in this movie
     slug: string;
     genres: Genre[];
 }
