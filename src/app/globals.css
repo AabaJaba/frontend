@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
+/* ===================================================
+   CineDex Design System (from PRD §4.2)
+   ===================================================
+   BG Base:        #2F4F4F (Dark Slate Grey)
+   Text Primary:   #F0F0F0 (Off White Grey)
+   Text Secondary: #9999AA (Metallic Lilac)
+   Accent:         #2ABFBF (Teal)
+   Typography:     Geist Sans
+   Surfaces:       8-10% lighter per elevation, max 4
+   =================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base colors */
+  --bg-base: #2F4F4F;
+  --bg-surface-1: #3A5E5E;  /* ~10% lighter */
+  --bg-surface-2: #456D6D;  /* ~10% lighter */
+  --bg-surface-3: #507C7C;  /* ~10% lighter */
+  --text-primary: #F0F0F0;
+  --text-secondary: #9999AA;
+  --accent: #2ABFBF;
+  --accent-hover: #24A8A8;
+  --accent-muted: rgba(42, 191, 191, 0.15);
+
+  /* Semantic */
+  --border: rgba(240, 240, 240, 0.1);
+  --border-hover: rgba(240, 240, 240, 0.2);
+  --overlay: rgba(47, 79, 79, 0.85);
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface-1: var(--bg-surface-1);
+  --color-bg-surface-2: var(--bg-surface-2);
+  --color-bg-surface-3: var(--bg-surface-3);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-overlay: var(--overlay);
+  --color-shadow: var(--shadow);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global styles */
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-surface-3);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--accent);
+  color: var(--bg-base);
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
