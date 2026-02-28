@@ -10,7 +10,7 @@ function SearchInput() {
     const [query, setQuery] = useState(searchParams.get("q") || "");
     const [isFocused, setIsFocused] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
-    const debounceRef = useRef<NodeJS.Timeout>();
+    const debounceRef = useRef<any>(null);
 
     // Keyboard shortcut: "/" to focus search
     useEffect(() => {
@@ -50,8 +50,8 @@ function SearchInput() {
         <form onSubmit={handleSubmit} className="relative flex-1 max-w-xl">
             <div
                 className={`flex items-center rounded-lg transition-all duration-200 ${isFocused
-                        ? "bg-bg-surface-2 ring-1 ring-accent"
-                        : "bg-bg-surface-1 hover:bg-bg-surface-2"
+                    ? "bg-bg-surface-2 ring-1 ring-accent"
+                    : "bg-bg-surface-1 hover:bg-bg-surface-2"
                     }`}
             >
                 {/* Search icon */}
