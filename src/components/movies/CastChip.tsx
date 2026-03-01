@@ -12,7 +12,7 @@ function CastCard({ name, character, photoUrl }: CastCardProps) {
     return (
         <div className="flex flex-col items-center text-center group">
             {/* Photo */}
-            <div className="relative h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full bg-bg-surface-2 border-2 border-border group-hover:border-accent/60 transition-colors mb-3">
+            <div className="relative aspect-square w-full max-w-[96px] sm:max-w-[112px] overflow-hidden rounded-full bg-bg-surface-2 border-2 border-border group-hover:border-accent/60 transition-colors mb-3">
                 {photoUrl ? (
                     <Image
                         src={photoUrl}

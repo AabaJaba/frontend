@@ -92,7 +92,7 @@ export default async function MovieDetailPage({
                 {/* Left column: Poster + key facts (sticky on desktop) */}
                 <div className="lg:sticky lg:top-24 lg:self-start w-full lg:w-80 flex-shrink-0">
                     {/* Poster */}
-                    <div className="relative aspect-[2/3] w-full max-w-sm mx-auto lg:mx-0 overflow-hidden rounded-xl border border-border">
+                    <div className="relative aspect-[2/3] w-2/3 max-w-[240px] sm:w-[280px] sm:max-w-none mx-auto lg:w-full lg:mx-0 overflow-hidden rounded-xl border border-border bg-bg-surface-1">
                         <PosterImage
                             movie={movie}
                             fill
